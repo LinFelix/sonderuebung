@@ -1,0 +1,21 @@
+* Minimale Struktur eine Fortran95 Programms
+** Maximale Zeilenlänge
+
+* Kommentare
+
+* Einfache Ein- und Ausgabe auf der Konsole
+
+* Variablen und Datentypen
+** Was ist eine Variable?
+*** Was für Variablennamen sind legal?
+*** Was für Typen gibt es und wie kann man diese Spezifizieren?
+
+* Einfache Rechnungen
+
+* Verzweigungen
+
+* Einrückung
+
+* Aussagelogik
+
+* Leserlichkeit

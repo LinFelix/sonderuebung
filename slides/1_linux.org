@@ -66,10 +66,14 @@
    | Ctrl + R                  | durchsucht die Befehlshistorie                                                                                         |
    | Pfeil nach unten          | geht zum nächsten Befehl in der Befehlshistorie                                                                        |
    | Ctrl + Pfeil links/rechts | geht um ein Wort nach links/rechts                                                                                     |
+   | Alt + F/B                 | geht Wort forward/backward                                                                                             |
    | Alt + backspace           | löscht ein ganzes Wort rückwärts                                                                                       |
-   | Ctrl + t                  | Vertauscht die letzten beiden Buchstaben                                                                               |
-   | Alt + t                   | Vertauscht die letzten beiden Wörter                                                                                   |
+   | Ctrl + K                  | löscht die Zeile nach dem Cursor                                                                                       |
+   | Alt + D                   | löscht das Wort nach dem Cursor                                                                                        |
+   | Ctrl + T                  | Vertauscht die letzten beiden Buchstaben                                                                               |
+   | Alt + T                   | Vertauscht die letzten beiden Wörter                                                                                   |
    | TAB                       | Autovervollständigung, soweit eindeutig wird vervollständigt, wenn nicht eindeutig werden alle Möglichkeiten angezeigt |
+   | Ctrl + D                  | logout, beendet die shell                                                                                              |
 
    Eigentlich beinhaltet die bash einen kleinen editor Namens [[https://en.wikipedia.org/wiki/GNU_Readline][GNU Readline]], welcher auch konfiguriert werden kann mit
    ~.inputrc~.
