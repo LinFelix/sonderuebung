@@ -57,16 +57,18 @@
    Versteckte files und directories beginnen mit einem Punkt (~.~) (z. B. ~~/.bashrc~)
 
 ** Shortcuts der shell
-   | Keybinding                | Effekt                                                                                                 |
-   |---------------------------+--------------------------------------------------------------------------------------------------------|
-   | Ctrl + C                  | Beendet das laufende Programm und geht zur eingabe zurück                                              |
-   | Pfeil nach oben           | holt die vorherige Eingabe in die Prompt zurück, man kann damit durch die gesamte Befehlhistorie gehen |
-   | Ctrl + R                  | durchsucht die Befehlshistorie                                                                         |
-   | Pfeil nach unten          | geht zum nächsten Befehl in der Befehlshistorie                                                        |
-   | Ctrl + Pfeil links/rechts | geht um ein Wort nach links/rechts                                                                     |
-   | Alt + backspace           | löscht ein ganzes Wort rückwärts                                                                       |
-   | Ctrl + t                  | Vertauscht die letzten beiden Buchstaben                                                               |
-   | Alt + t                   | Vertauscht die letzten beiden Wörter                                                                   |
+   | Keybinding                | Effekt                                                                                                                 |
+   |---------------------------+------------------------------------------------------------------------------------------------------------------------|
+   | Ctrl + C                  | Beendet das laufende Programm und geht zur eingabe zurück                                                              |
+   | Pfeil nach oben           | holt die vorherige Eingabe in die Prompt zurück, man kann damit durch die gesamte Befehlhistorie gehen                 |
+   | Ctrl + R                  | durchsucht die Befehlshistorie                                                                                         |
+   | Pfeil nach unten          | geht zum nächsten Befehl in der Befehlshistorie                                                                        |
+   | Ctrl + Pfeil links/rechts | geht um ein Wort nach links/rechts                                                                                     |
+   | Alt + backspace           | löscht ein ganzes Wort rückwärts                                                                                       |
+   | Ctrl + t                  | Vertauscht die letzten beiden Buchstaben                                                                               |
+   | Alt + t                   | Vertauscht die letzten beiden Wörter                                                                                   |
+   | TAB                       | Autovervollständigung, soweit eindeutig wird vervollständigt, wenn nicht eindeutig werden alle Möglichkeiten angezeigt |
+
    Eigentlich beinhaltet die bash einen kleinen editor Namens [[https://en.wikipedia.org/wiki/GNU_Readline][GNU Readline]], welcher auch konfiguriert werden kann mit
    ~.inputrc~.
 
