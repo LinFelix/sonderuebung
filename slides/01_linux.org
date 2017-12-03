@@ -83,7 +83,7 @@
      echo "665857" "470832" | ./roundr
    #+end_src
    Diese Zeile nimmt die beiden Zahlen und tut sie Input in ~roundr~. Die Zahlen müssen als Strings übergeben werden
-   daher die Anführungszeichen (src_bash{""}).
+   daher die Anführungszeichen ("").
 **** Beispiel
         #+begin_src bash
 	  fortune | cowsay
