@@ -1,0 +1,167 @@
+* Linux Einführung und Tricks
+** Was ist [[https://en.wikipedia.org/wiki/Linux][Linux]] und was benutzen wir und warum
+   Im PC-Pool ist [[https://www.ubuntu.com/][Ubuntu]] installiert. Ubuntu ist ein Sorte von einem vollständigen [[https://en.wikipedia.org/wiki/Linux][Linux]]-basiertem [[https://en.wikipedia.org/wiki/Operating_system][Betriebssystem]]. [[https://en.wikipedia.org/wiki/Linux][Linux]]
+   ist redet mit der Hardware wie [[https://en.wikipedia.org/wiki/Central_processing_unit][CPU]], [[https://en.wikipedia.org/wiki/Random-access_memory][memory]], [[https://en.wikipedia.org/wiki/Computer_network][Netzwerk]], Bildschirm etc. Es gibt verschiedene Systeme die das nutzen
+   sogenannte [[https://en.wikipedia.org/wiki/Linux_distribution][Distributions]], welche viel mehr bieten und teilweise sehr unterschiedlich sind.
+
+   Es ist empfehlenswert wenn ihr euren eigenen Rechner benutzt, da ihr euch dort alles nach eurem Geschmack einrichten
+   könnt und ausprobieren könnt. Ubuntu ist einer dieser [[https://en.wikipedia.org/wiki/Linux_distribution][Distributions]] und soll sehr einfach zu bedienen sein. Man
+   könnte auch ein anderes [[https://en.wikipedia.org/wiki/Operating_system][Betriebssystem]] benutzen, jedoch sollte man eine vertrauenswürdigen [[https://en.wikipedia.org/wiki/Compiler][Compiler]]
+   haben. Erfahrungswerte aus den letzten Jahren zeigen, dass es schwierig bzw. problematisch sein kann. (OS X kann
+   gfortran native verwenden und Bash unter Ubuntu unter Windows soll auch ein möglicher kniff sein) Aber welche
+   Möglichkeit man auch nimmt, man benutzt eine [[https://en.wikipedia.org/wiki/Shell_(computing)][shell]]/[[https://en.wikipedia.org/wiki/Bash_(Unix_shell)][bash]] zum bedienen. Dies ist nicht verkehrt, da es immer noch das
+   mächtigste interface ist um mit dem Rechner zu interagieren (da eine mächtige [[https://en.wikipedia.org/wiki/Shell_script][scriptable Sprache]] dahinter liegt sind
+   die Möglichkeit kaum auszuschöpfen). Am Anfang ist der Umgang mit der bash ungewohnt aber je vertrauter man mit ihr
+   ist desto effizienter kann jemand seinen/ihren Rechner oft verwenden.
+
+** Shell/bash/Command Prompt
+   (Wir zeigen hier die [[https://en.wikipedia.org/wiki/Bash_(Unix_shell)][bash]], ihr könnt aber auch alternativen verwenden wenn ihr wollt).
+   Was ihr bei Standardkonfiguration sehen werdet sieht in etwa so aus:
+   ~<username>@<hostname> ~ $~
+   Der ~username~ ist euer Name mit dem auf dem Rechner angemeldet seid.
+   ~<hostname>~ ist der Name wie sich der Computer selbst nennt.
+   Die Tilde (~~~) zeigt euch an in welchem directory (Ordner) ihr seid. ~~~ steht für das [[https://en.wikipedia.org/wiki/Home_directory#Unix][home-directory]] was euer
+   eigenes directory ist. Dort könnt ihr tun und lassen was ihr wollt ohne andere Nutzer zu stören.
+
+   Die Zeile die ihr seht nennt man [[https://en.wikipedia.org/wiki/Command-line_interface#Command_prompt][prompt]], nun könnt ihr Befehle eingeben, mit Enter bestätigen. Wenn ihr mit [[https://en.wikipedia.org/wiki/Enter_key][Enter]] die
+   Eingabe bestätigt wird was ihr eingegeben habt gelesen, interpretiert und ausgeführt.
+   Es gibt viele Befehle die ihr eingeben könnt. Hier ist eine Liste wichtiger oder praktischer Befehle:
+   (Sachen in eckigen Klammern (~<>~) sind Platzhalter für Parameter)
+   (Die syntax ist ~<befehl> <parameter>~ wobei es parameter gibt, welche man so angibt wie file names und andere werden
+   mit einem dash (~-~) eingeleitet, Abtrennung von befehlen und Parametern ist das Leerzeichen)
+
+   | Befehlsname                  | Was passiert                                                                                                                                                              |
+   |------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+   | [[https://en.wikipedia.org/wiki/Man_page][man]] <Befehlsname>            | öffnet das Manual (Handbuch) zu einem Befehl (schließe mit der Taste "q" für ~quit~)                                                                                      |
+   | [[https://linux.die.net/man/1/ls][ls]]                           | listet den Inhalt der directories                                                                                                                                         |
+   | ls -alh                      | zeigt alle Inhalte (auch verstecke Dateien ~a~) gelistet (~l~) mit verständlichen Angaben (~h~)                                                                           |
+   | [[https://linux.die.net/man/1/pwd][pwd]]                          | gibt das jetzige directory an (print working directory)                                                                                                                   |
+   | [[https://linux.die.net/man/1/uname][uname]] -a                     | gibt Systeminformationen an                                                                                                                                               |
+   | [[https://linux.die.net/man/1/whoami][whoami]]                       | gibt den Username zurück                                                                                                                                                  |
+   | cd <directory>               | geht in das directory <directory>                                                                                                                                         |
+   | [[https://linux.die.net/man/1/mkdir][mkdir]] <directory>            | erstellt ein directory names <directory> im aktuellen directory                                                                                                           |
+   | [[https://linux.die.net/man/1/mv][mv]] <old_file> <new_file>     | verschiebt/benennt das file <old_file> um in <new_file> (verschieben und umbenennen ist die gleiche Aktion)                                                               |
+   | [[https://linux.die.net/man/1/rm][rm]] <file>                    | löscht die Datei <file>                                                                                                                                                   |
+   | [[https://linux.die.net/man/1/echo][echo]] <params>                | gibt params zurück                                                                                                                                                        |
+   | <befehl> &                   | führt <befehl> im Hintergrund aus und lässt dich weiter Befehle eingeben                                                                                                  |
+   | <command1> && <command2>     | führt <command1> aus und sobald <command1> ohne Error beendet wurde wird <command2> ausgeführt                                                                            |
+   | [[https://linux.die.net/man/1/touch][touch]] <file>                 | erstellt <file> oder verändert den Zeitstempel von <file>                                                                                                                 |
+   | [[https://linux.die.net/man/1/cat][cat]] <file>                  | gibt den Inhalt von <file> aus                                                                                                                                            |
+   | [[https://linux.die.net/man/1/grep][grep]] <pattern>               | durchsucht nach <pattern> (Beispiel später)                                                                                                                               |
+   | [[https://linux.die.net/man/1/find][find]] -name <pattern>         | sucht nach einem file name und den sub directories der <pattern> entspricht                                                                                               |
+   | grep -r -i -n -C 3 <pattern> | durchsucht alle files in sub directories nach <pattern> ohne auf Groß/Kleinschreibung zu achten und gibt diese mit Zeilennummer und jeweils 3 Zeilen davor und danach aus |
+
+   Jedes directory /beinhaltet/ die directories ~.~ und ~..~. ~.~ ist das jetzige directory und ~..~ bedeutet das
+   darüber liegende directory. Directories werden konkateniert mit ~/~
+
+   Versteckte files und directories beginnen mit einem Punkt (~.~) (z. B. ~~/.bashrc~)
+
+** Shortcuts der shell
+   | Keybinding                | Effekt                                                                                                 |
+   |---------------------------+--------------------------------------------------------------------------------------------------------|
+   | Ctrl + C                  | Beendet das laufende Programm und geht zur eingabe zurück                                              |
+   | Pfeil nach oben           | holt die vorherige Eingabe in die Prompt zurück, man kann damit durch die gesamte Befehlhistorie gehen |
+   | Ctrl + R                  | durchsucht die Befehlshistorie                                                                         |
+   | Pfeil nach unten          | geht zum nächsten Befehl in der Befehlshistorie                                                        |
+   | Ctrl + Pfeil links/rechts | geht um ein Wort nach links/rechts                                                                     |
+   | Alt + backspace           | löscht ein ganzes Wort rückwärts                                                                       |
+   | Ctrl + t                  | Vertauscht die letzten beiden Buchstaben                                                               |
+   | Alt + t                   | Vertauscht die letzten beiden Wörter                                                                   |
+   Eigentlich beinhaltet die bash einen kleinen editor Namens [[https://en.wikipedia.org/wiki/GNU_Readline][GNU Readline]], welcher auch konfiguriert werden kann mit
+   ~.inputrc~.
+
+** Weiter Syntax
+*** Pipe
+   Es gibt die sogenannte [[https://en.wikipedia.org/wiki/Pipeline_(Unix)][pipe]] (~|~) welche den Output von einem Program/Befehl nimm und in einen anderen gibt.
+   z. B. man hat sein Fortran program aus der ersten Aufgabe geschrieben und hat es ~roundr~ genannt, wird man immer
+   nach zwei Eingaben gefragt, wenn das Programm aufgerufen wird. Das kann man abkürzen
+   #+begin_src bash
+     echo "665857" "470832" | ./roundr
+   #+end_src
+   Diese Zeile nimmt die beiden Zahlen und tut sie Input in ~roundr~. Die Zahlen müssen als Strings übergeben werden
+   daher die Anführungszeichen (~""~).
+**** Beispiel
+        #+begin_src bash
+	  fortune | cowsay
+        #+end_src
+
+**** grep
+     Ein kleines Beispiel um grep zu demonstrieren:
+     Wenn man einen file hat genannt ~ivalmod.f95~ hat und nun alle Funktionsnamen haben möchte reicht kann man einfach
+     #+begin_src bash
+       cat ivalmod.f95 | grep -n -i function
+     #+end_src
+     eingeben und kriegt unabhängig der Groß- und Kleinschreibung alle Zeilen die 'Function' enthält mit Zeilennummer
+     aus.
+
+*** files beschreiben
+    Man kann output in files schreiben.
+    Mit ~>~ beschreibt man einen file neu (der alte Inhalt ist dann weg).
+    Mit ~>>~ schreib man ans Ende eines files
+**** Beispiel
+     ~randr~ heißt unser Programm
+     #+begin_src bash
+      echo "665857" "470832" | ./roundr > file1
+     #+end_src
+     Die Ausgabe von unseres Proms ist nun der Inhalt von ~file1~.
+     Wenn man diese Zeile nochmal ausführt wird der Inhalt überschrieben.
+     Mit der folgenden Zeile wird der Output ans Ende geschrieben.
+     #+begin_src bash
+      echo "665857" "470832" | ./roundr >> file1
+     #+end_src
+
+** Der compiler [[https://en.wikipedia.org/wiki/GNU_Fortran][GNU Fortran]]
+   Fortran source code der geschrieben wird wird in ~<name>.f95~ files abgespeichert und kann dann mit dem Compiler
+   ~gfortran~ in Maschinensprache übersetzt werden. Nennen wird unser Programmcode mal ~source.f95~. Mit
+   #+begin_src bash
+     gfortran source.f95
+   #+end_src
+   wird das Programm übersetzt und ein ausführbares file (executable) namens ~a.out~ erstellt.
+
+   Um der Executable nach wünschen zu benennen gibt es den Parameter ~-o~.
+   #+begin_src bash
+     gfortran -o myAwesomeExecutable source.f95
+   #+end_src
+
+   Wenn man compiliert möchte man sich vielleicht alle Warnungen ausgeben lassen, dies passiert mit dem ~-Wall~ parameter
+   #+begin_src bash
+     gfortran -Wall source.f95
+   #+end_src
+
+   Wenn man sich auf einen Standard beschränken möchte (was eine gute Idee ist) kann man den mit dem ~-std~ parameter
+   angeben.
+   #+begin_src bash
+     gfortran -std=f95 source.f95
+   #+end_src
+
+   Wenn man mit Arrays arbeitet und vom compiler einen Check für zulässige Indexzugriffe haben möchte ist das mit
+   ~-fbounds-check~ möglich.
+   #+begin_src bash
+     gfortran -fbounds-check source.f95
+   #+end_src
+
+   Diese Parameter sind alle kombinierbar und nachschlagbar unter ~man gfortran~.
+   Zum Compilieren mit modulen und Bibliotheken kommen wir wenn wir Module kennen lernen.
+** Ausblick
+*** Editor
+    Zum Programmieren ist nun noch ein Editor nötig. Man nehme den seiner Wahl. Beliebte Möglichkeiten sind [[https://www.gnu.org/software/emacs/][Emacs]], [[http://www.vim.org/][vim]],
+    [[https://wiki.gnome.org/Apps/Gedit][gedit]], [[https://kate-editor.org/][kate]], [[http://www.sublimetext.com/][SublimeText]], [[https://developer.apple.com/xcode/][Xcode]], [[https://atom.io/][ATOM]]. Alle haben verschiedene Vor- und Nachteile und gerne [[https://en.wikipedia.org/wiki/Editor_war][streiten sich Leute
+    drüber]]. Sucht euch euren aus.
+*** Mehr Linux
+    Es gibt noch viel mehr zu [[https://en.wikipedia.org/wiki/Everything_is_a_file][Linux]], das meiste davon geht jedoch über diese Veranstaltung um vieles hinaus.
+    Ein Paar pointer:
+**** Interessante Befehle/Programme (zum weiter machen)
+     - [[https://linux.die.net/man/1/top][top]]
+     - [[hittps://linux.die.net/man/1/ps][ps]]
+     - [[https://wiki.archlinux.org/index.php/File_permissions_and_attributes][chmod]]
+     - [[https://wiki.archlinux.org/index.php/Sudo][sudo]]
+     - [[https://en.wikipedia.org/wiki/AWK][awk]]
+     - [[https://en.wikipedia.org/wiki/Sed][sed]]
+     - [[https://git-scm.com/][git]]
+     - [[http://www.zsh.org/][zsh]]
+     - [[http://fishshell.com/][fish]]
+     - [[https://www.gnu.org/software/make/][make]]
+     - [[https://en.wikipedia.org/wiki/Transmission_Control_Protocol][tcp]]
+     - und viele mehr
+*** Debuggen
+    Es gibt den [[https://en.wikipedia.org/wiki/Debugger][Debugger]] [[Debbuger ~][gdb]] welcher gut aber gewöhnungsbedürftig ist.
