@@ -20,7 +20,7 @@
    ~<username>@<hostname> ~ $~
    Der ~<username>~ ist euer Name mit dem auf dem Rechner angemeldet seid.
    ~<hostname>~ ist der Name wie sich der Computer selbst nennt.
-   Die Tilde (=\~=) zeigt euch an in welchem directory (Ordner) ihr seid. =\~= steht für das [[https://en.wikipedia.org/wiki/Home_directory#Unix][home-directory]] was euer
+   Die Tilde (=~=) zeigt euch an in welchem directory (Ordner) ihr seid. =~= steht für das [[https://en.wikipedia.org/wiki/Home_directory#Unix][home-directory]] was euer
    eigenes directory ist. Dort könnt ihr tun und lassen was ihr wollt ohne andere Nutzer zu stören.
 
    Die Zeile die ihr seht nennt man [[https://en.wikipedia.org/wiki/Command-line_interface#Command_prompt][prompt]], nun könnt ihr Befehle eingeben, mit Enter bestätigen. Wenn ihr mit [[https://en.wikipedia.org/wiki/Enter_key][Enter]] die
@@ -83,7 +83,7 @@
      echo "665857" "470832" | ./roundr
    #+end_src
    Diese Zeile nimmt die beiden Zahlen und tut sie Input in ~roundr~. Die Zahlen müssen als Strings übergeben werden
-   daher die Anführungszeichen (=""=).
+   daher die Anführungszeichen (src_bash{""}).
 **** Beispiel
         #+begin_src bash
 	  fortune | cowsay
