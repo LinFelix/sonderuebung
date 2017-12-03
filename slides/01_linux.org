@@ -20,7 +20,7 @@
    ~<username>@<hostname> ~ $~
    Der ~<username>~ ist euer Name mit dem auf dem Rechner angemeldet seid.
    ~<hostname>~ ist der Name wie sich der Computer selbst nennt.
-   Die Tilde (~\~~) zeigt euch an in welchem directory (Ordner) ihr seid. ~\~~ steht für das [[https://en.wikipedia.org/wiki/Home_directory#Unix][home-directory]] was euer
+   Die Tilde (=\~=) zeigt euch an in welchem directory (Ordner) ihr seid. =\~= steht für das [[https://en.wikipedia.org/wiki/Home_directory#Unix][home-directory]] was euer
    eigenes directory ist. Dort könnt ihr tun und lassen was ihr wollt ohne andere Nutzer zu stören.
 
    Die Zeile die ihr seht nennt man [[https://en.wikipedia.org/wiki/Command-line_interface#Command_prompt][prompt]], nun könnt ihr Befehle eingeben, mit Enter bestätigen. Wenn ihr mit [[https://en.wikipedia.org/wiki/Enter_key][Enter]] die
@@ -30,33 +30,33 @@
    (Die syntax ist ~<befehl> <parameter>~ wobei es parameter gibt, welche man so angibt wie file names und andere werden
    mit einem dash (~-~) eingeleitet, Abtrennung von befehlen und Parametern ist das Leerzeichen)
 
-   | Befehlsname                  | Was passiert                                                                                                                                                              |
-   |------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-   | ~[[https://en.wikipedia.org/wiki/Man_page][man]] <Befehlsname>~          | öffnet das Manual (Handbuch) zu einem Befehl (schließe mit der Taste ~q~ für ~quit~)                                                                                      |
-   | ~[[https://linux.die.net/man/1/ls][ls]]~                         | listet den Inhalt der directories                                                                                                                                         |
-   | ~ls -alh~                    | zeigt alle Inhalte (auch verstecke Dateien ~a~) gelistet (~l~) mit verständlichen Angaben (~h~)                                                                           |
-   | ~[[https://linux.die.net/man/1/pwd][pwd]]~                        | gibt das jetzige directory an (print working directory)                                                                                                                   |
-   | ~[[https://linux.die.net/man/1/uname][uname]] -a~                  | gibt Systeminformationen an                                                                                                                                               |
-   | ~[[https://linux.die.net/man/1/whoami][whoami]]~                    | gibt den Username zurück                                                                                                                                                  |
-   | ~cd <directory>~             | geht in das directory ~<directory>~                                                                                                                                       |
-   | ~[[https://linux.die.net/man/1/mkdir][mkdir]] <directory>~         | erstellt ein directory names ~<directory>~ im aktuellen directory                                                                                                         |
-   | ~[[https://linux.die.net/man/1/mv][mv]] <old_file> <new_file>~  | verschiebt/benennt das file ~<old_file>~ um in ~<new_file>~ (verschieben und umbenennen ist die gleiche Aktion)                                                           |
-   | ~[[https://linux.die.net/man/1/rm][rm]] <file>~                 | löscht die Datei ~<file>~                                                                                                                                                |
-   | ~[[https://linux.die.net/man/1/echo][echo]] <params>~             | gibt params zurück                                                                                                                                                        |
-   | ~<befehl> &~                 | führt ~<befehl>~ im Hintergrund aus und lässt dich weiter Befehle eingeben                                                                                                |
-   | ~<command1> && <command2>~   | führt ~<command1>~ aus und sobald ~<command1>~ ohne Error beendet wurde wird ~<command2>~ ausgeführt                                                                      |
-   | ~[[https://linux.die.net/man/1/touch][touch]] <file>~              | erstellt ~<file>~ oder verändert den Zeitstempel von ~<file>~                                                                                                             |
-   | ~[[https://linux.die.net/man/1/cat][cat]] <file>~               | gibt den Inhalt von ~<file>~ aus                                                                                                                                          |
-   | ~[[https://linux.die.net/man/1/grep][grep]] <pattern>~            | durchsucht nach ~<pattern>~ (Beispiel später)                                                                                                                             |
-   | ~[[https://linux.die.net/man/1/find][find]] -name <pattern>~      | sucht nach einem file name und den sub directories der ~<pattern>~ entspricht                                                                                             |
-   | ~grep -r -i -n -C 3 <pattern>~ | durchsucht alle files in sub directories nach ~<pattern>~ ohne auf Groß/Kleinschreibung zu achten und gibt diese mit Zeilennummer und jeweils 3 Zeilen davor und danach aus |
-   | ~[[https://linux.die.net/man/1/alias][alias]] <binding>="<command>"~ | ~<binding>~ kann nach diesem Befehl aufgerufen werden und es wird ~<command>~ ausgeführt                                                                                  |
+   | Befehlsname                  | Was passiert                                                                                                                                                                |
+   |------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+   | [[https://en.wikipedia.org/wiki/Man_page][man]] <Befehlsname>            | öffnet das Manual (Handbuch) zu einem Befehl (schließe mit der Taste ~q~ für ~quit~)                                                                                        |
+   | [[https://linux.die.net/man/1/ls][ls]]                           | listet den Inhalt der directories                                                                                                                                           |
+   | ls -alh                      | zeigt alle Inhalte (auch verstecke Dateien ~a~) gelistet (~l~) mit verständlichen Angaben (~h~)                                                                             |
+   | [[https://linux.die.net/man/1/pwd][pwd]]                          | gibt das jetzige directory an (print working directory)                                                                                                                     |
+   | [[https://linux.die.net/man/1/uname][uname]] -a                     | gibt Systeminformationen an                                                                                                                                                 |
+   | [[https://linux.die.net/man/1/whoami][whoami]]                       | gibt den Username zurück                                                                                                                                                    |
+   | cd <directory>               | geht in das directory ~<directory>~                                                                                                                                         |
+   | [[https://linux.die.net/man/1/mkdir][mkdir]] <directory>            | erstellt ein directory names ~<directory>~ im aktuellen directory                                                                                                           |
+   | [[https://linux.die.net/man/1/mv][mv]] <old_file> <new_file>     | verschiebt/benennt das file ~<old_file>~ um in ~<new_file>~ (verschieben und umbenennen ist die gleiche Aktion)                                                             |
+   | [[https://linux.die.net/man/1/rm][rm]] <file>                    | löscht die Datei ~<file>~                                                                                                                                                   |
+   | [[https://linux.die.net/man/1/echo][echo]] <params>                | gibt params zurück                                                                                                                                                          |
+   | <befehl> &                   | führt ~<befehl>~ im Hintergrund aus und lässt dich weiter Befehle eingeben                                                                                                  |
+   | <command1> && <command2>     | führt ~<command1>~ aus und sobald ~<command1>~ ohne Error beendet wurde wird ~<command2>~ ausgeführt                                                                        |
+   | [[https://linux.die.net/man/1/touch][touch]] <file>                 | erstellt ~<file>~ oder verändert den Zeitstempel von ~<file>~                                                                                                               |
+   | [[https://linux.die.net/man/1/cat][cat]] <file>                   | gibt den Inhalt von ~<file>~ aus                                                                                                                                            |
+   | [[https://linux.die.net/man/1/grep][grep]] <pattern>               | durchsucht nach ~<pattern>~ (Beispiel später)                                                                                                                               |
+   | [[https://linux.die.net/man/1/find][find]] -name <pattern>         | sucht nach einem file name und den sub directories der ~<pattern>~ entspricht                                                                                               |
+   | grep -r -i -n -C 3 <pattern> | durchsucht alle files in sub directories nach ~<pattern>~ ohne auf Groß/Kleinschreibung zu achten und gibt diese mit Zeilennummer und jeweils 3 Zeilen davor und danach aus |
+   | [[https://linux.die.net/man/1/alias][alias]] <binding>="<command>"  | ~<binding>~ kann nach diesem Befehl aufgerufen werden und es wird ~<command>~ ausgeführt                                                                                    |
 
 
    Jedes directory /beinhaltet/ die directories ~.~ und ~..~. ~.~ ist das jetzige directory und ~..~ bedeutet das
-   darüber liegende directory. Directories werden konkateniert mit ~/~
+   darüber liegende directory. Directories werden http://orgmode.org/manual/Structure-of-code-blocks.html#Structure-of-code-blockskonkateniert mit ~/~
 
-   Versteckte files und directories beginnen mit einem Punkt (~.~) (z. B. ~\~/.bashrc~)
+   Versteckte files und directories beginnen mit einem Punkt (~.~) (z. B. =~/.bashrc=)
 
 ** Shortcuts der shell
    | Keybinding                | Effekt                                                                                                                 |
@@ -83,7 +83,7 @@
      echo "665857" "470832" | ./roundr
    #+end_src
    Diese Zeile nimmt die beiden Zahlen und tut sie Input in ~roundr~. Die Zahlen müssen als Strings übergeben werden
-   daher die Anführungszeichen (~\"\"~).
+   daher die Anführungszeichen (=""=).
 **** Beispiel
         #+begin_src bash
 	  fortune | cowsay
