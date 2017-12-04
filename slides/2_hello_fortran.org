@@ -1,15 +1,96 @@
 * Minimale Struktur eine Fortran95 Programms
+  Die Grundlegende Struktur eine Fortran Programms ist
+  #+begin_src f90
+    program minimalProgram
+      implicit none
+
+    end program minimalProgram
+  #+end_src
+** IMPLICIT NONE
+   Das ~IMPLICIT NONE~ statement ist guter Stil und sollte beibehalten werden. Durch das ~IMPLICIT NONE~ statement muss
+   jede Variable deklariert werden, was zu Typsicherheit führt. Das ist gut, damit man sicherstellen kann, das auch
+   vorgegebene Datentypen verwendet werden und jeder Variable deterministisch einen Datentyp hat (und auch nur diesen).
 ** Maximale Zeilenlänge
+   Fortran hat eine Maximale Zeilenlänge. 132 Zeichen. Die meisten Compiler werden nicht mehr als diese Zeichen
+   wahrnehmen.
 
+   Achtung:
+   Das heißt insbesondere, dass eine Rechnung welche bis zu 132 Zeichen syntaktisch korrekt ist, jedoch darüber hinaus
+   geht, missverstanden wird, da nur die ersten 132 Zeichen übersetzt werden
+   #+begin_src f90
+     program toomanycolumn
+       implicit none
+
+       INTEGER(KIND=SELECTED_INTEGER_KIND(40)) :: long_variable_names_do_not_make_a_good_variable, but_this_is_a_very_long_variable_name
+       INTEGER(KIND=SELECTED_INTEGER_KIND(40)) :: this_name_is_still_long = 3
+
+       long_variable_names_do_not_make_a_good_variable = 0
+       but_this_is_a_very_long_variable_name = long_variable_names_do_not_make_a_good_variable + 5
+
+       WRITE(*,*)   long_variable_names_do_not_make_a_good_variable + but_this_is_a_very_long_variable_name + this_name_is_still_long     +  but_this_is_a_very_long_variable_name
+       ! Es wird am ende 8 ausgegeben anstatt die zu erwartenden 13
+     end program toomanycolumn
+
+   #+end_src
+
+** Groß-/Kleinschreibung
+   Seit dem Fortan90 standard ist Fortran case insensitive, heißt alles, befehle, Variablennamen, Funktionsnamen
+   etc. können groß wie auch klein geschrieben werden. Es ist identisch. Das heißt insbesondere, dass  im Gegensatz zu
+   anderen Programmiersprachen kann man nicht verschiedene Variablen durch Groß- und Kleinschreibung unterscheiden
+   (z. B. eine ~element~ und ~Element~ bezeichnen die gleiche Variable)
+   #+begin_src f90
+     prOgraM caSE
+       imPLIcit nONe
+  
+     eND ProGrAm caSE
+   #+end_src
+   Dieses Programm ist möglich, jedoch offensichtlich unleserlich. Es ist zu empfehlen sich für Schlüsselwörter einen
+   Stil auszusuchen, groß oder klein, und diesen durchzusetzen. Konsistenz erhöht die Leserlichkeit.
 * Kommentare
+  Source Code ist nicht natürliche Sprache. Mit source code hat man eine vom Menschen lesbare aber nicht unbedingt
+  verständliche Sprache. Auch wenn es für den geübten Programmierer kein Problem ist die Abläufe kleiner Programme
+  schnell nachzuvollziehen kann jedes Programm schnell an Komplexität gewinnen und wird somit schnell unübersichtlich.
+  Damit aber jemand den Ablauf, den durch die Programmiersprache beschriebenen Prozess auch dann nachvollziehen kann
+  wenn das gesamte Programm aus mehreren Tausend oder mehrere Millionen (2001 hatte der Linux-Kernel über 30 Millionen
+  Zeilen) besteht, ist es angebracht den source code irgendwie zu erklären. Solche Dokumentationen können in
+  Handbüchern, Wikis, Foren, Blogs, Intros, Guidelines oder Tutorials gefunden werden. Jedoch ist oft die einfachste
+  Möglichkeit natürliche Sprache in den source code einzupflegen. ~Kommentare~ sind Zeilen oder Abschnitte welche beim
+  Übersetzen des Programms ignoriert werden und somit mit Erklärungen gefüllt werden können. Oft sind Kommentare nicht
+  für den Laien gedacht und erklären nicht die Programmiersprache (in unseren Beispielprogrammen schon) sondern erklärt
+  den Zusammenhang oder andere nicht offensichtliche Dinge.
 
-* Einfache Ein- und Ausgabe auf der Konsole
+  Kommentare in ~Fortra90~, ~Fortra95~, ~Fortran03~, ~Fortran08~ werden mit einem ~!~ eingeleitet. Der Rest der Zeile
+  wird vom Compiler beim Übersetzten nicht beachtet.
+  #+begin_src f90
+    program commentsexample
+      implicit none
 
+      ! Diese Zeile ist ein Kommentar
+
+      WRITE(*,*) "Das ist Text"  ! Das ist ein Kommentar, Befehle und Kommentare können in der gleichen Zeile stehen. 
+
+      !! <= ein zweites Ausrufezeichen macht nichts, _alles_ nach dem ersten ist ein Kommentar
+
+      ! WRITE(*,*) "Dieser Text wird nicht geschrieben"  ! Dieser Befehl steht in einem Kommentar und wird deswegen ignoriert
+  
+    End program commentsexample
+
+  #+end_src
+** Warum wird ein Zeile die mit ~C~ anfängt von gedit als Kommentar angezeigt
+   Im ~FORTAN77~ standard wurde Fortran source code noch nicht eingerückt. Kommentare wurden nicht mit ~!~
+   eingeleitet. Source code wurde in sogenannter fester Form geschrieben und Kommentare waren Zeilen die in der ersten
+   Spalte den Buchstaben ~C~ hatten. Gedit versucht feste Form wie auch freie Form (Altes Fortran und modernes Fortran)
+   farblich richtig hervorgehoben.
 * Variablen und Datentypen
 ** Was ist eine Variable?
+   Man kann sich Variablen wie einen Platzhalter oder Boxen vorstellen. Eine Box, in der man immer eine bestimmte Sache
+   haben kann. Und diese Boxen haben alle einen Namen, bei dem wir die Box ansprechen können, ihren Inhalt lesen können
+   oder ihr einen neuen Inhalt geben. Aber jede Box hat auch eine vorgegebene Form und Größe, welche durch einen
+   Datentyp beschrieben wird und jeder Inhalt muss zum Datentyp der Variable passen.
 *** Was für Variablennamen sind legal?
 *** Was für Typen gibt es und wie kann man diese Spezifizieren?
 
+* Einfache Ein- und Ausgabe auf der Konsole
 * Einfache Rechnungen
 
 * Verzweigungen

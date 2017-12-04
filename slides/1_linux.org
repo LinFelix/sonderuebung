@@ -194,14 +194,11 @@
     Wall (kurz für Warnings all) zeigt einem alle Warnungen des Compilers an. Ein gutes Programm kompiliert ohne
     Warnungen. Als Beispiel nehmen wir uns das Program ~ZahlenausText.f95~. Ein Beispielprogramm, welches ihr in Opal
     findet. Beim compilieren
-   #+begin_src bash :results output
+   #+begin_src bash :results raw
      echo $(gfortran -Wall -o ZahlenausText -std=f95 ZahlenausText.f95) >&1
    #+end_src
 
    #+RESULTS:
-
-
-#   #+RESULTS:
      ZahlenausText.f95:69:26:
 
      INTEGER             :: i, ios, signif_Laenge, Position, Summe
