@@ -10,9 +10,10 @@
    haben. Erfahrungswerte aus den letzten Jahren zeigen, dass es schwierig bzw. problematisch sein kann. (OS X kann
    gfortran native verwenden und Bash unter Ubuntu unter Windows soll auch ein möglicher kniff sein) Aber welche
    Möglichkeit man auch nimmt, man benutzt eine [[https://en.wikipedia.org/wiki/Shell_(computing)][shell]]/[[https://en.wikipedia.org/wiki/Bash_(Unix_shell)][bash]] zum bedienen. Dies ist nicht verkehrt, da es immer noch das
-   mächtigste interface ist um mit dem Rechner zu interagieren (da eine mächtige [[https://en.wikipedia.org/wiki/Shell_script][scriptable Sprache]] dahinter liegt sind
-   die Möglichkeit kaum auszuschöpfen). Am Anfang ist der Umgang mit der bash ungewohnt aber je vertrauter man mit ihr
-   ist desto effizienter kann jemand seinen/ihren Rechner oft verwenden.
+   mächtigste interface ist um mit dem Rechner zu interagieren (da eine mächtige [[https://en.wikipedia.org/wiki/Shell_script][scriptable Sprache]] (Es gibt Schleifen,
+   Variablen, Funktionen und Verzweigungen) dahinter liegt sind die Möglichkeit kaum auszuschöpfen). Am Anfang ist der
+   Umgang mit der bash ungewohnt aber je vertrauter man mit ihr ist desto effizienter kann jemand seinen/ihren Rechner
+   oft verwenden.
 
 ** Shell/bash/Command Prompt
    (Wir zeigen hier die [[https://en.wikipedia.org/wiki/Bash_(Unix_shell)][bash]], ihr könnt aber auch alternativen verwenden wenn ihr wollt).
@@ -173,3 +174,46 @@
      - und viele mehr
 *** Debuggen
     Es gibt den [[https://en.wikipedia.org/wiki/Debugger][Debugger]] [[Debbuger ~][gdb]] welcher gut aber gewöhnungsbedürftig ist.
+
+* Übungsaufgaben
+** In einem neuen directory
+   Suche dir einen Ort aus wo du jetzt ein bisschen ausprobieren kannst. Ich nenne es jetzt einfach ~mydir~.
+   #+begin_src bash
+     mkdir mydir && cd mydir
+   #+end_src
+
+** wir erstellen directories für alle Übungsaufgaben
+   Eine kleine demonstration der vielen Möglichkeiten der Shell. In unserem directory erstellen wir jetzt mehrere
+   Subdirectories mit spezifischen Namen.
+   #+begin_src bash
+     mkdir Uebungsaufgabe{00..12}
+   #+end_src
+
+** Wir schreiben ein Programm und nutzen flags
+*** Wall
+    Wall (kurz für Warnings all) zeigt einem alle Warnungen des Compilers an. Ein gutes Programm kompiliert ohne
+    Warnungen. Als Beispiel nehmen wir uns das Program ~ZahlenausText.f95~. Ein Beispielprogramm, welches ihr in Opal
+    findet. Beim compilieren
+   #+begin_src bash :results output
+     echo $(gfortran -Wall -o ZahlenausText -std=f95 ZahlenausText.f95) >&1
+   #+end_src
+
+   #+RESULTS:
+
+
+#   #+RESULTS:
+     ZahlenausText.f95:69:26:
+
+     INTEGER             :: i, ios, signif_Laenge, Position, Summe
+                            1
+     Warning: Unused variable 'i' declared at (1) [-Wunused-variable]
+
+** Pipe Input und speichere Output
+   Im Beispiel von der ersten Aufgebe haben wir die pipe schon kennengelernt.
+   Nun wollen wir unsere ~Ergebnisse~ in eine Datei speichern.
+   #+begin_src bash
+     (echo "5" "5" | roundr) >> Ergebnisse
+   #+end_src
+   durch ~echo~ und ~|~ werden ~5~ und ~5~ in unser Programm ~roundr~ geladen, die Ausgabe wird and das Ende des files
+   ~Ergebnisse~ geschrieben. Falls ~Ergebnisse~ nicht existiert wird der file angelegt.
+
