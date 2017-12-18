@@ -33,6 +33,20 @@
 
    #+end_src
 
+** Zeilenumbruch
+   Was ist wenn man mehr als eine Zeile braucht?
+   #+begin_src f90
+       output = input1 + input2
+
+       ! Möglicher Zeilenumbruch
+       output = input1 \&
+	    + input2
+
+       ! Eine andere Möglichkeit des Zeilenumbruchs
+       output = input1 \&
+       \& + input2
+   #+end_src
+   Zeilenfortsetzungen dürfen sich auf maximal 40 Zeilen erstrecken.
 ** Groß-/Kleinschreibung
    Seit dem Fortan90 standard ist Fortran case insensitive, heißt alles, befehle, Variablennamen, Funktionsnamen
    etc. können groß wie auch klein geschrieben werden. Es ist identisch. Das heißt insbesondere, dass  im Gegensatz zu
@@ -88,15 +102,119 @@
    oder ihr einen neuen Inhalt geben. Aber jede Box hat auch eine vorgegebene Form und Größe, welche durch einen
    Datentyp beschrieben wird und jeder Inhalt muss zum Datentyp der Variable passen.
 *** Was für Variablennamen sind legal?
-*** Was für Typen gibt es und wie kann man diese Spezifizieren?
+    - maximal 31 Zeichen
+    - muss mit einem Buchstaben beginnen
+    - darf Buchstaben und Ziffern beinhalten und ~_~
+** Datentypen
+*** siehe Merkblatt ~IntegerRealFormate.pdf~
+    zu erwähnen, die generischen Funktionen:
+    - KIND(X)
+      gibt den KIND-Wert zurück
+    - RADIX(X)
+      die Basis des Zahlemodelles derjenigen Zahlen liefert, die den gleichen Typ und Typparameterwert wie X haben.
+    - MINEXPONENT, MAXEXPONENT
+      gibt den kleinsten, größten möglichen Exponenten an
+    - TINY, HUGE
+      Kleiste, größte Zahle des Typ
+    - DIGITS
+      Anzahl der möglichen signifikanten Stellen
+    - EPSILON(X)
+      gibt ein positive Modellzahl, die fast vernachlässigbar ist gegenüber der Einheit in dem Zahlenmodell
+    - RANGE
+      gibt den dezimalen Exponentenbereich des Zahlenmodells an
+    - PRECISION
+      gibt dezimale Genauigkeit reeller Zahlen an
+*** CHARACTER
+    #+begin_src f90
+	! Die Variable one_letter besteht nur aus einen Zeichen
+	CHARACTER :: one_letter
 
+	! Die Variable many_letters besteht aus 30 Zeichen
+	CHARACTER(len=30) :: many_letters
+	! Das sind noch keine 30 Zeichen aber many_letters wird mit
+	! Leerzeichen aufgefüllt.
+	many_lettes = "not 30 characters yet"
+
+	! Gibt alle 30 Zeichen auf der Konsole aus
+	WRITE(*.*) many_letters
+
+	! Gibt nur "not 30 characters yet" aus
+	WRITE (*,*) TRIM(many_letters)
+    #+end_src
+*** LOGICAL
+    Variablen vom Typ ~LOGICAL~ können ~.TRUE.~ ODER ~.FALSE.~ als
+    Wert haben.
+** Attribute, mehr als Datentypen
+   Jede Variable hat eine Datentypen und kann zusätzlich noch
+   Attribute haben, mögliche Attribute sind:
+
+
+   ~PARAMETER~, ~INDENT(IN)~, ~INTENT(OUT)~, ~POINTER~, ~OPTIONAL~,
+   ~ALLOCATABLE~, ~DIMENSION~, ~INTENT(INOUT), ~TARGET~, ~SAVE~,
+   ~PRIVATE~, ~PUBLIC~
+
+
+   Die Syntax dazu ist
+
+   ~<Datentype<KIND>> <, Attribute> ... :: Variablenname~
+
+   Das heißt, Zwischen dem Datentyp und den ~::~ kann man Attribute
+   (ein oder mehrere) schreiben. Fast alle dieser Attribute für
+   Variablen, wollen wir zu einem späteren Zeitpunkt aufgreifen und
+   erklären. Ein Beispiel sind ~PARAMETER~
+
+*** PARAMETER
+    Eine Variable mit dem PARAMETER-Attribut ist eine Konstante die zu
+    Beginn des Programms einen festen Wert erhält, welcher nicht mehr
+    geändert werden kann.
+    #+begin_src f90
+      program example_parameter
+	implicit none
+
+	! Jetzt kommt eine Variablendeklaration, für pi mit dem
+	! PRAMATER-Attribut, weswegen, pi nicht mehr Überschrieben werden
+	! kann.
+
+	REAL,PARAMETER :: pi = 3.14
+
+      end program example_parameter
+    #+end_src
 * Einfache Ein- und Ausgabe auf der Konsole
-* Einfache Rechnungen
+  Wenn wir ein Programm über die Kommandozeile öffnen, können wir auch
+  von dieser Lesen (genannt ~Standard Input~, kurz: ~stdin~) und auch
+  uns Dinge uns ausgeben lassen (genannt ~Standard Output~, kurz:
+  ~stdin~). Eingaben brauchen immer eine Variable, welche mit dem
+  Input beschrieben werden. Wir können auch mehrere Variable
+  gleichzeitig beschreiben. Ausgaben können überall im Programmablauf
+  getan werden. Es kann vorgegebener Text und der Wert von Variablen
+  ausgegeben werden, sogar Zusammen. Text muss man mit ~"~ umschließen
+  und Variablen muss man benennen. Um dies alles in eine Zeile zu
+  Packen müssen diese Dinge mit einem ~,~ voneinander getrennt werden.
+  #+begin_src f90
+      ! Die Eingabe über die Konsole (Stdin/Standard Input) wird in
+      ! variable gespeicher
+      READ(*,*) variable
 
+      ! Mehr als eine Eingabe geht auch
+      READ(*,*) variable, other_variable
+
+      ! Der Wert von variable wird auf der Konsole (Stdout/Standard
+      ! Output) ausgegeben
+      WRITE(*,*) variable
+
+      ! Eine ausgabe mit mehr Inhalt
+      WRITE(*,*) "Dieser Text wird so ausgebegebn und der Wert von var ist", var
+  #+end_src
+* Einfache Rechnungen
+** ~+~, ~-~, ~*~, ~/~, ~**~
+** ~MOD~
+* Vergleiche
+** ~==~, ~/=~, ~<=~, ~>=~, ~>~, ~<~
+* Aussagelogik
+** ~.AND.~, ~.OR.~, ~.NOT.~, ~.EQV.~, ~.NEQV.~ 
 * Verzweigungen
 
 * Einrückung
-
-* Aussagelogik
+  Wird vom Compiler ignoriert, jedoch nicht von anderen Programmierern.
 
 * Leserlichkeit
