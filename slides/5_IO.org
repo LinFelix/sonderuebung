@@ -1,0 +1,302 @@
+* Wiederholung: ~CHARACTER~
+  Wir erinnern uns an den Datentypen ~CHARACTER~, welcher bei der Deklaration einen positiven ~INTEGER~-Parameter namens
+  ~LEN~ nimmt, welcher die Länge der Zeichenkette ausdrückt.
+** Zugriffe auf Zeichenketten
+   Wir können ähnlich zu arrays auch Teile von Zeichenketten ansprechen:
+  #+BEGIN_SRC f90 :export both :results output
+    PROGRAM character_example
+      IMPLICIT NONE
+
+      CHARACTER(LEN=5) :: mytext = "Text1"
+
+      ! Nun kann ich Teile meiner Zeichenkette mytext ansprechen, wie bei
+      ! einem array
+
+      write (*,*) mytext(3:)
+      write (*,*) mytext(:3)
+      write (*,*) mytext(2:4)
+
+
+      ! Ein einzelnen Eintrag ist jedoch nicht möglich (im Gegensatz zu
+      ! arrays). Das heißt die folgende Zeile wirft einen Fehler währen
+      ! dem Compilierungsvorgang
+      ! write (*,*) mytext(3)
+
+      ! Zeichenketten können auch konkateniert werden mit //
+
+      write (*,*) mytext // mytext
+      write (*,*) mytext(1:3) // mytext(3:)
+      write (*,*) mytext // "und das ist ganz anderer Text"
+
+    END PROGRAM character_example
+  #+END_SRC
+
+  #+RESULTS:
+  : xt1
+  : Tex
+  : ext
+  : Text1Text1
+  : Texxt1
+  : Text1und das ist ganz anderer Text
+
+** Intrinsische Funktionon für ~CHARACTER~
+*** ~ACHAR(i)~
+    ~i~ ist ~INTEGER~ zwischen 0 und 127. Der Rückgabewert ist das i-te ASCII-Zeichen.
+*** ~IACHAR(C)~
+    ~C~ ist ein einzelner ~CHARACTER~. Es wird die Stelle des ASCII-Alphabets von ~C~ zurückgegeben.
+*** ~INDEX(STRING,SUBSTRING)~
+    gibt den Index des ersten Vorkommens der Zeichenkette ~SUBSTRING~ in der Zeichenkette ~STRING~.
+*** ~LEN(STRING)~
+    gibt die Länge von ~STRING~ zurück.
+*** ~LEN_TRIM(STRING)~
+    gibt die Länge von ~STRING~ ohne nachgeschleppten Leerzeichen zurück.
+*** ~LGE~, ~LGT~, ~LLE~, ~LLT~
+    Diese Funktionen nehmen jeweils zwei Zeichenketten ~STRING_A~ und ~STRING_B~ als parameter und geben entsprechend
+    ein Logical über (lexical greater equal, lexical greater than, lexical littler equal, lexical littler than)
+*** ~TRIM(STRING)~
+    gibt ~STRING~ ohne nachgeschleppte Leerzeichen zurück.
+
+** Es gibt keine ~CHARACTER~ beliebiger Größe
+   Wir können die Länge ~LEN=*~ angeben um einer Zeichenkette eine beliebige Größe zu geben, jedoch wird diese Größe bei
+   der ersten Zuweisung fest gelegt.
+   #+BEGIN_SRC f90 :export both :results output
+     PROGRAM arbitrariy_character
+       IMPLICIT NONE
+
+       CHARACTER(LEN=*), parameter :: arbitrary_len = "Eine Zeichenketten unbekannter Größe"
+
+       write (*,*) arbitrary_len
+
+     END PROGRAM arbitrariy_character
+   #+END_SRC
+
+   #+RESULTS:
+   : Eine Zeichenketten unbekannter Größe
+
+* File ~I/O~
+  ~I/O~ (~Input~, ~Output~) bezeichnet das lese und schreiben in und aus Dateien auf dem file system. Dies sind Aktionen
+  welche während der Laufzeit fehlschlagen können und der Programmierer hat keinen Einfluss darüber. Um dem entgegen zu
+  wirken wird ist es möglich während jeder Aktion, welche mit einer Datei arbeitet eine ~INTEGER~-Variable zu verwenden
+  welche durch die Aktion beschrieben wird mit bestimmten Werten, welche den Miss/Erfolg des gewünschten Befehls
+  impliziert. Des weiteren braucht jede Datei eine Identifier. Dies ist auch nur ein ~INTEGER~ den wir vergeben und mit
+  dem wir innerhalb unseres Programms diese Datei spezifizieren können. Dies wird in Fortran ~UNIT~ genannt. Aus
+  praktischen bzw. historischen Gründen empfehlen wir UNITs zwischen 30 und 500 zu vergeben.
+** ~OPEN~ (und ~CLOSE~)
+   ~OPEN~ öffnet eine Datei, diese kann bereits existieren, muss aber nicht. Nur ~UNIT~ ist nicht optional. ~OPEN~ nimmt
+   folgende Parameter
+*** ~UNIT~
+    ~INTEGER~ um die Datei zu identifizieren.
+
+    Nachdem die Datei nicht weiter benötigt sollte man die Datei wieder schließen. Dies geschieht durch
+    ~CLOSE(UNIT=myunitvariable)~.
+*** ~FILE~
+    Zeichenkette die den Namen/Pfad der Datei angiebt
+*** ~STATUS~
+    Hat folgende Optionen:
+    - 'old' : Die Datei muss existieren, ansonsten Fehler
+    - 'new' : Die Datei darf noch nicht existieren, sonst Fehler
+    - 'replace' : Falls die Datei bereits existiert, wird deren Inhalt gelöscht
+*** ~ACTION~
+    'read' und 'write' können spezifiziert werden um auszusagen, ob man in die Datei schreiben möchte oder aus der Datei
+    lesen möchte.
+*** ~IOSTAT~
+    dort wird eine ~INTEGER~-Variable angegeben. In dieser Variabler wird festgehalten ob das Öffnen erfolgreich
+    war. Dann wird der Wert der Variable auf ~0~ gesetzt.
+** ~WRITE~ und ~READ~
+*** ~READ~
+    Die ~READ~ Anweisung funktioniert für Dateien genauso wie in der Shell. 
+    Anstatt des ersten ~*~ können wir nun einfach die Unit angeben.
+** ~WRITE~
+   Analog zu ~READ~
+** Beispiel
+Die folgenden Beispiele sind aus [[https://srv.rz.uni-bayreuth.de/lehre/fortran90/vorlesung/][dieser Quelle]].
+*** Zuerst beschreiben wird eine Datei
+    #+BEGIN_SRC f90 :export both :results output
+      program schreiben
+	implicit none
+	integer :: io_error
+	integer :: n
+
+	open(unit=20 , file='wertetabelle.dat', status='new', action='write', iostat=io_error)
+	if (io_error == 0) then
+	   do n = 1 , 5
+	      write(20,*) n, real(n)
+	   end do
+	else
+	   write(*,*) 'Beim OEffenen der Datei ist ein Fehler Nr.', io_error, 'aufgetreten'
+	end if
+	close(unit=20)
+      end program schreiben
+    #+END_SRC
+*** Danach lesen wir selbige Datei
+    #+BEGIN_SRC f90 :export both :results output
+      program lesen
+	implicit none
+	integer :: io_error
+	integer :: n
+	integer :: i
+	real :: y
+
+	open(unit=20, file='wertetabelle.dat', status ='old', action ='read', iostat=io_error)
+
+	if (io_error == 0) then
+
+	   do n = 1, 5
+	      read(20,*) i, y
+	      write(*,*) n,'-te Zeile :', i, y
+	   end do
+	else
+	   write(*,*) 'Beim OEffenen der Datei ist ein Fehler Nr. ', io_error,' aufgetreten'
+	end if
+	close(unit=20)
+
+      end program lesen
+    #+END_SRC
+
+** ~IOSTAT~
+   Wir wir in den vorangegangenen Beispielen gesehen haben, können wir Aktionen ausführen, welche fehlschlagen können,
+   eine Variable für ~IOSTAT~ verwenden und dann mögliche Probleme mit einer einfachen Überprüfung ~==0~ abfangen.
+
+   Um unbekannt viele Zeilen zu lesen zum Beispiel können wir auch in ~READ~ Anweisungen (als dritter Parameter) eine
+   Variable für ~IOSTAT~ übergeben.
+* Formatierte Aus(-/Ein)gabe
+  Tipp: https://de.wikibooks.org/wiki/Fortran:_Fortran_95:_Ein-_und_Ausgabe#Formatlistenelemente
+** ~ADVANCE~
+   ~WRITE~ und ~READ~ haben einen optionalen Parameter, dessen default Wert 'YES' ist.
+   Mit ~ADVANCE='NO'~ kann man spezifizieren, dass die ~WRITE~-Anweisung nicht in eine neue Zeile gehen soll.
+
+** Wie spezifiziert man das Format
+   das FORMAT kann man in zwei Varianten angeben:
+   #+BEGIN_SRC f90 :export both :results output
+   PROGRAM example
+     IMPLICIT NONE
+     integer :: i = 123456
+     real :: x = 3.141593 
+
+     write(*,'(1X,I6,F10.2)') i, x
+   END PROGRAM example
+   #+END_SRC
+   #+BEGIN_SRC f90 :export both :results output
+   PROGRAM example
+     IMPLICIT NONE
+     integer :: i = 123456
+     real :: x = 3.141593
+
+     character(len=16) :: string
+     string = '(1X,I6,F10.2)'
+     write(*,string) i, x
+   END PROGRAM example
+   #+END_SRC
+
+** Bsp. von [[https://srv.rz.uni-bayreuth.de/lehre/fortran90/vorlesung/][dieser Quelle]].
+   #+BEGIN_SRC fortran :export both :results output
+     !    Beispiele Formatbeschreiber REAL
+				   !
+				   ! a) rFw.d Fixpunktdarstellung
+				   ! b) rEw.d wissenschaftliche Darstellung
+				   ! c) rESw .d " echte " wissenschaftliche Darstellung ( Fortran90 /95 Erweiterung )
+				   ! d) rENw .d " Ingenieur - Darstellung " ( Fortran90 /95 Erweiterung )
+				   ! e) rGw.d " Gleitpunktzahl " je nachdem F oder E- Format
+				   !
+				   ! r : Wiederholungsfaktor
+				   ! w : Feldgroesse
+				   ! d : Nachkommastellen : dabei muss gelten :
+				   !
+				   ! a) w >= d+2
+				   ! b) w >= d+7 falls der Compiler die Null vor
+				   ! dem Punkt schreibt . Falls der Compiler
+				   ! die Ziffer 0 nicht ausschreibt , reicht w >= d+6
+				   ! c) w >= d+7 aehnlich b) , die Ziffer vor dem Punkt
+				   ! liegt zwischen -9 und 9
+				   ! d) w >= d+9 aehnlich b) und c) , die Zahl vor dem Punkt liegt zwischen
+				   ! 1 und 999 bzw. -1 und -999 und die Exponent zur Basis 10
+				   ! wird stets als ein Vielfaches von 3 bzw. -3 dargestellt
+				   ! wie es den ueblichen Benennungen als Kilo , Mega , Giga ...
+				   ! bzw. Milli , Mikro , Nano ... entspricht
+				   !
+				   ! e) w >= d+7 Falls sich die Zahl als Fixpunktzahl (F- Format )
+				   ! darstellen laesst , wird dieses verwendet , wenn nicht ,
+				   ! wird die E - Darstellung eingesetzt )
+				   !
+      program format_real
+
+      implicit none
+      real :: x = 1.234567 , y = 2.222222E5 , z = -3.3333E-5
+
+      write (* ,*) ' Listengesteuerte Ausgabe einzeln :'
+      write (* ,*) x
+      write (* ,*) y
+      write (* ,*) z
+      write (* ,*)
+
+      write (* ,*) ' Formatgesteuerte Ausgabe ''(F13 .4) '':'
+      100 format (1X,F13 .4)
+      write (* ,100) x
+      write (* ,100) y
+      write (* ,100) z
+      write (* ,*)
+
+      write (* ,*) ' Formatgesteuerte Ausgabe ''(E13 .4) '':'
+      200 format (1X,E13 .4)
+      write (* ,200) x
+      write (* ,200) y
+      write (* ,200) z
+      write (* ,*)
+
+      write (* ,*) ' Formatgesteuerte Ausgabe ''( ES13 .4) '':'
+      300 format (1X, ES13 .4)
+
+
+      write (* ,300) x
+      write (* ,300) y
+      write (* ,300) z
+      write (* ,*)
+
+      write (* ,*) ' Formatgesteuerte Ausgabe ''( EN13 .4) '':'
+      400 format (1X, EN13 .4)
+      write (* ,400) x
+      write (* ,400) y
+      write (* ,400) z
+      write (* ,*)
+
+      write (* ,*) ' Formatgesteuerte Ausgabe ''(G13 .4) '':'
+     500 format (1X,G13 .4)
+      write (* ,500) x
+      write (* ,500) y
+      write (* ,500) z
+
+     END PROGRAM format_real
+   #+END_SRC
+
+   #+RESULTS:
+   #+begin_example
+   Listengesteuerte Ausgabe einzeln :
+    1.23456705    
+    222222.203    
+   -3.33329990E-05
+
+   Formatgesteuerte Ausgabe '(F13 .4) ':
+	 1.2346
+    222222.2031
+	-0.0000
+
+   Formatgesteuerte Ausgabe '(E13 .4) ':
+     0.1235E+01
+     0.2222E+06
+    -0.3333E-04
+
+   Formatgesteuerte Ausgabe '( ES13 .4) ':
+     1.2346E+00
+     2.2222E+05
+    -3.3333E-05
+
+   Formatgesteuerte Ausgabe '( EN13 .4) ':
+     1.2346E+00
+   222.2222E+03
+   -33.3330E-06
+
+   Formatgesteuerte Ausgabe '(G13 .4) ':
+      1.235    
+     0.2222E+06
+    -0.3333E-04
+   #+end_example

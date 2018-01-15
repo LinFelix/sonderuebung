@@ -106,24 +106,25 @@
     - muss mit einem Buchstaben beginnen
     - darf Buchstaben und Ziffern beinhalten und ~_~
 ** Datentypen
-*** siehe Merkblatt ~IntegerRealFormate.pdf~
-    zu erwähnen, die generischen Funktionen:
-    - KIND(X)
-      gibt den KIND-Wert zurück
-    - RADIX(X)
-      die Basis des Zahlemodelles derjenigen Zahlen liefert, die den gleichen Typ und Typparameterwert wie X haben.
-    - MINEXPONENT, MAXEXPONENT
-      gibt den kleinsten, größten möglichen Exponenten an
-    - TINY, HUGE
-      Kleiste, größte Zahle des Typ
-    - DIGITS
-      Anzahl der möglichen signifikanten Stellen
-    - EPSILON(X)
-      gibt ein positive Modellzahl, die fast vernachlässigbar ist gegenüber der Einheit in dem Zahlenmodell
-    - RANGE
-      gibt den dezimalen Exponentenbereich des Zahlenmodells an
-    - PRECISION
-      gibt dezimale Genauigkeit reeller Zahlen an
+*** INTEGER
+    ~INTEGER~ ist ein Datentype der einen Teil der ganzen Zahlen ℤ repräsentiert. Ein verbreitetes Format ist das ~2-er
+    Komplement~. Jedoch macht dies keine großen Unterschied für unsere Programme. ~INETEGER~ können im Allgemeinen
+    positiv oder negativ sein.
+*** REAL
+*** Nützliche generische, intrinsische Funktionen für ~REAL~s
+    Siehe Merkblatt ~IntegerRealFormate.pdf~
+    Hier listen wir ein paar intrinsische Funktionen für ~REAL~-Variablen:
+    - ~KIND(X)~ gibt den ~KIND~-Wert zurück
+    - ~RADIX(X)~ gibt die Basis des Zahlemodelles derjenigen Zahlen an, die den gleichen Typ und Typparameterwert wie
+      ~X~ haben.
+    - ~MINEXPONENT(X)~, ~MAXEXPONENT(X)~ geben den kleinsten bzw. größten möglichen Exponenten des Zahlentyps von ~X~
+      an.
+    - ~TINY(X)~, ~HUGE(X)~ geben die kleinste bzw. größte Zahl des Datentyps von ~X~ an.
+    - ~DIGITS(X)~ gibt die Anzahl der möglichen signifikanten Stellen von ~X~ an.
+    - ~EPSILON(X)~ gibt eine positive Modellzahl, die fast vernachlässigbar ist gegenüber der Einheit in dem
+      Zahlenmodell von ~X~.
+    - ~RANGE(X)~ gibt den dezimalen Exponentenbereich des Zahlenmodells von ~X~ an.
+    - ~PRECISION(X)~ gibt dezimale Genauigkeit reeller Zahlen mit gleichen Typ und Typparameterwert wie ~X~ an.
 *** CHARACTER
     #+begin_src f90
 	! Die Variable one_letter besteht nur aus einen Zeichen
